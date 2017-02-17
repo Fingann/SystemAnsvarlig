@@ -1,0 +1,264 @@
+﻿<UserControl
+    x:Class="SystemAnsvarlig.Views.SystemManagerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converter="clr-namespace:SystemAnsvarlig.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SystemAnsvarlig.Views"
+    xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    d:DesignHeight="500"
+    d:DesignWidth="450"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <!--  DataContext="{Binding SystemManager, Source={StaticResource Locator}}"  -->
+    <Grid Margin="10">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*" />
+                <ColumnDefinition Width="17*" />
+                <ColumnDefinition Width="30*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+
+
+
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                VerticalContentAlignment="Bottom"
+                Content="Navn: " />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                materialDesignMahApps:TextFieldAssist.Hint="Navnet på systemet"
+                Text="{Binding Itsystem.Name}" />
+
+
+            <Label
+                Grid.Row="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Appl: " />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                materialDesignMahApps:TextFieldAssist.Hint="Legg inn navnet på gruppen i AD"
+                Text="{Binding Itsystem.Appl}" />
+
+
+            <Label
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Beskrivelse: " />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                MinWidth="340"
+                MaxWidth="340"
+                materialDesignMahApps:TextFieldAssist.Hint="Beskrivelse...."
+                Text="{Binding Itsystem.Description}"
+                TextWrapping="Wrap" />
+
+            <Grid
+                x:Name="PriceLisence"
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="0,10,0,10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Content="Lisens: " />
+
+
+                <CheckBox
+                    x:Name="LisenceCheckBox"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding Itsystem.Lisens}" />
+
+
+
+                <Label
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Pris: "
+                    Visibility="{Binding ElementName=LisenceCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+
+                <TextBox
+                    Grid.Column="3"
+                    Grid.ColumnSpan="2"
+                    MaxWidth="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    materialDesignMahApps:TextFieldAssist.Hint="Pris på systemet "
+                    Text="{Binding Itsystem.Price}"
+                    Visibility="{Binding ElementName=LisenceCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Content="Passord: " />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3"
+                    MaxWidth="300"
+                    VerticalAlignment="Center"
+                    materialDesignMahApps:TextFieldAssist.Hint="AD, Resurs Admin, Egent"
+                    Text="{Binding Itsystem.Password}" />
+
+            </Grid>
+            <Grid
+                x:Name="AliasList"
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBox
+                    x:Name="AliasTextbox"
+                    Margin="0,5,5,5"
+                    materialDesignMahApps:TextFieldAssist.Hint="Legg til Alias"
+                    TextWrapping="Wrap" />
+
+                <ListView
+                    x:Name="AliasListView"
+                    Grid.Row="1"
+                    MinHeight="50"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0"
+                    ItemsSource="{Binding Alias, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="DodgerBlue"
+                    BorderThickness="0"
+                    Command="{Binding AddAliasCommand}"
+                    CommandParameter="{Binding ElementName=AliasTextbox, Path=Text}"
+                    Content="Legg til" />
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="RoyalBlue"
+                    BorderThickness="0"
+                    Command="{Binding DeleteAliasCommand}"
+                    CommandParameter="{Binding ElementName=AliasListView, Path=SelectedItem}"
+                    Content="Slett" />
+
+
+            </Grid>
+            <Grid
+                x:Name="SysAdminList"
+                Grid.Row="4"
+                Grid.Column="2"
+                Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBox
+                    x:Name="SysAnsvarligTextbox"
+                    Margin="5"
+                    materialDesignMahApps:TextFieldAssist.Hint="Legg til Systemansvarlig"
+                    Text=""
+                    TextWrapping="Wrap" />
+
+                <ListView
+                    x:Name="SysAdminLisView"
+                    Grid.Row="1"
+                    MinHeight="50"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0"
+                    ItemsSource="{Binding SysAdmin, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="DodgerBlue"
+                    BorderThickness="0"
+                    Command="{Binding AddSysAdminCommand}"
+                    CommandParameter="{Binding ElementName=SysAnsvarligTextbox, Path=Text}"
+                    Content="Legg til" />
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="RoyalBlue"
+                    BorderThickness="0"
+                    Command="{Binding DeleteSysAdminCommand}"
+                    CommandParameter="{Binding ElementName=SysAdminLisView, Path=SelectedItem}"
+                    Content="Slett" />
+
+
+            </Grid>
+
+            <Button
+                Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,1,5,2"
+                Background="{StaticResource AccentBaseColorBrush}"
+                BorderThickness="0"
+                Command="{Binding ConfirmCommand}"
+                Content="Lagre" />
+            <Button
+                Grid.Row="5"
+                Grid.Column="2"
+                Margin="5,1,0,2"
+                Background="{StaticResource AccentBaseColorBrush}"
+                BorderThickness="0"
+                Command="{Binding CloseCommand}"
+                Content="Avbryt" />
+
+        </Grid>
+
+
+
+
+    </Grid>
+</UserControl>

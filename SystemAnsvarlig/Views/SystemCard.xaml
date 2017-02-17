@@ -1,0 +1,107 @@
+﻿<UserControl
+    x:Class="SystemAnsvarlig.Views.SystemCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:context="clr-namespace:ITSystems.Model;assembly=ITSystems"
+    xmlns:converters="clr-namespace:SystemAnsvarlig.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SystemAnsvarlig.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="200"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <!--<UserControl.DataContext>
+        <context:ITSystem></context:ITSystem>
+    </UserControl.DataContext>-->
+    <UserControl.Resources>
+        <converters:ListToStringConverter x:Key="ListToStringConverter" />
+        <converters:PriceToVisibilityConverter x:Key="PriceToVisibilityConverter" />
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+        <converters:BoolToLicenceConverter x:Key="BoolToLicenceConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <materialDesign:Card
+            Margin="5,5,5,5"
+            Padding="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="239*" />
+                    <ColumnDefinition Width="241*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="26*" />
+                    <RowDefinition Height="13*" />
+                    <RowDefinition Height="36*" />
+                    <RowDefinition Height="15*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    FontWeight="DemiBold"
+                    Text="{Binding Name}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="right"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    FontWeight="DemiBold"
+                    Text="{Binding Appl}"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    Text="Beskrivelse:" />
+
+
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    MaxWidth="350"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Text="{Binding Description, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+
+
+                <WrapPanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Label
+                        Content="{Binding Lisens, Converter={StaticResource BoolToLicenceConverter}}"
+                        FontWeight="Bold"
+                        Foreground="{Binding Lisens, Converter={StaticResource BoolToColorConverter}}" />
+                    <Label
+                        Content="{Binding Price}"
+                        ContentStringFormat="Pris: {0}Kr"
+                        Visibility="{Binding Price, Converter={StaticResource PriceToVisibilityConverter}}" />
+
+                </WrapPanel>
+
+                <WrapPanel
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <!--<Label HorizontalContentAlignment="Left" Content="Ansvarlig:" Grid.Column="1" HorizontalAlignment="Left"  />-->
+                    <TextBlock Text="{Binding SysAdministrator, Converter={StaticResource ListToStringConverter}, StringFormat=Ansvarlig: {0}}" TextWrapping="Wrap" />
+
+                </WrapPanel>
+            </Grid>
+
+
+        </materialDesign:Card>
+
+    </Grid>
+</UserControl>

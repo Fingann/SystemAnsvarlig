@@ -1,0 +1,134 @@
+﻿<Controls:MetroWindow
+    x:Class="SystemAnsvarlig.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ignore="http://www.galasoft.ch/ignore"
+    xmlns:local="clr-namespace:SystemAnsvarlig"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="clr-namespace:SystemAnsvarlig.Views"
+    Title="MVVM Light Application"
+    Width="450"
+    Height="600"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d ignore">
+
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Controls:MetroWindow.DataContext>
+    <materialDesign:DialogHost
+        x:Name="Host"
+        MinWidth="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+        MaxWidth="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        IsOpen="{Binding FlyoutIsOpen, UpdateSourceTrigger=PropertyChanged}">
+
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="62*" />
+                <RowDefinition Height="371*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+
+
+            <Button
+                x:Name="button"
+                Grid.Row="1"
+                Width="126"
+                Height="31"
+                Margin="5,0,0,5"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding CreateCommand}"
+                Content="Lag ny" />
+            <Button
+                x:Name="button1"
+                Grid.Row="1"
+                Width="126"
+                Height="31"
+                Margin="0,0,5,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding EditCommand}"
+                Content="Endre" />
+            <materialDesign:Card
+                x:Name="SearchCard"
+                Margin="15,5,15,3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <TextBox
+                    x:Name="SearchBox"
+                    Width="{Binding ActualWidth, ElementName=SearchCard, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="5,5,15,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Controls:TextBoxHelper.Watermark="Søk"
+                    FontSize="25"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+            </materialDesign:Card>
+
+            <ListView
+                x:Name="listView"
+                Grid.Row="1"
+                Margin="10,10,10,72"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderThickness="0"
+                ItemsSource="{Binding ListOfSystems, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding CurrentDisplayedSystem}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <userControls:SystemCard Margin="-7" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+
+                        <MenuItem
+                            Command="{Binding EditCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"
+                            Header="Endre" />
+                        <MenuItem
+                            Command="{Binding DeleteCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"
+                            Header="Slett" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <StackPanel
+                Grid.Row="1"
+                Width="0"
+                Height="0"
+                Margin="427,5,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                AllowDrop="True" />
+
+
+
+        </Grid>
+    </materialDesign:DialogHost>
+</Controls:MetroWindow>
+
