@@ -60,7 +60,7 @@
 
         public void Update(ITSystem systemToSave)
         {
-            var index = this.LoadedList.FindIndex(x => x.guid == systemToSave.guid);
+            var index = this.LoadedList.FindIndex(x => x.Guid == systemToSave.Guid);
             this.LoadedList.RemoveAt(index);
             this.LoadedList.Insert(index, systemToSave);
             this.SaveITSystemList();

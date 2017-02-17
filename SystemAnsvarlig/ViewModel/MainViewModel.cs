@@ -170,7 +170,7 @@
             }
 
             this._dataService.Update((b, exception) => Console.WriteLine(b), system);
-            var found = ListOfSystems.FirstOrDefault(x => x.guid == system.guid);
+            var found = ListOfSystems.FirstOrDefault(x => x.Guid == system.Guid);
             ListOfSystems.Remove(found);
             ListOfSystems.Add(system);
          

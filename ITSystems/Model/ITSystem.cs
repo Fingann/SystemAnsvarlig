@@ -8,13 +8,13 @@ namespace ITSystems.Model
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ITSystem
+    public class ITSystem : ISystem
     {
-        public readonly Guid guid;
+        
 
         public ITSystem()
         {
-            this.guid = Guid.NewGuid();
+            this.Guid = Guid.NewGuid();
         }
 
         public ITSystem(
@@ -38,6 +38,8 @@ namespace ITSystems.Model
             this.Price = price;
         }
 
+        public Guid Guid { get; }
+
         public List<string> Alias { get; set; } = new List<string>();
 
         public string Appl { get; set; } = "Appl_";
@@ -56,6 +58,27 @@ namespace ITSystems.Model
 
         public List<string> SysAdministrator { get; set; } = new List<string>();
 
+        public void Update(ISystem updatetdSystem)
+        {
+            Alias = updatetdSystem.Alias;
+
+            Appl = updatetdSystem.Appl;
+
+            Description = updatetdSystem.Description;
+
+            LastUpdated = updatetdSystem.LastUpdated;
+
+            Lisens = updatetdSystem.Lisens;
+
+            Name = updatetdSystem.Name;
+
+            Password = updatetdSystem.Password;
+
+            Price = updatetdSystem.Price;
+
+            SysAdministrator = SysAdministrator;
+        }
+
         public string aliasString()
         {
             return this.Alias.Count > 0 ? this.Alias.Aggregate((a, b) => a + " " + b) : string.Empty;
@@ -69,5 +92,14 @@ namespace ITSystems.Model
         {
             return this.Name + ", " + this.Appl;
         }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as ISystem;
+
+            return item?.Guid == this.Guid;
+        }
+
+
     }
 }

@@ -12,7 +12,8 @@ namespace SystemAnsvarlig.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is List<string>)
+            var list1 = value as List<string>;
+            if (list1 is List<string> && list1.Count > 0 )
             {
                 var list = value as List<string>;
                 return list.Aggregate((a, b) => a + ", " + b);

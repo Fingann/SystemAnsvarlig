@@ -6,21 +6,32 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ignore="http://www.galasoft.ch/ignore"
     xmlns:local="clr-namespace:SystemAnsvarlig"
+    	xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:userControls="clr-namespace:SystemAnsvarlig.Views"
-    Title="MVVM Light Application"
-    Width="450"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    Title="IT - Systemer"
+    Width="500"
     Height="600"
-    Background="{DynamicResource MaterialDesignPaper}"
+    AllowsTransparency="True" 
+    Background="Transparent"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    BorderThickness="0"
     TextElement.FontSize="13"
+    
+    WindowTitleBrush="Transparent"
+    NonActiveWindowTitleBrush="Transparent"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d ignore">
-
+    <i:Interaction.Behaviors>
+        <Behaviours:BorderlessWindowBehavior/>
+       
+    </i:Interaction.Behaviors>
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,6 +44,7 @@
     </Controls:MetroWindow.DataContext>
     <materialDesign:DialogHost
         x:Name="Host"
+        
         MinWidth="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
         MaxWidth="{Binding Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
         HorizontalAlignment="Stretch"
@@ -47,57 +59,58 @@
                 <RowDefinition Height="371*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="158*" />
+                <ColumnDefinition Width="63*"/>
             </Grid.ColumnDefinitions>
 
 
 
-            <Button
-                x:Name="button"
-                Grid.Row="1"
-                Width="126"
-                Height="31"
-                Margin="5,0,0,5"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Command="{Binding CreateCommand}"
-                Content="Lag ny" />
-            <Button
-                x:Name="button1"
-                Grid.Row="1"
-                Width="126"
-                Height="31"
-                Margin="0,0,5,5"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding EditCommand}"
-                Content="Endre" />
+
+
             <materialDesign:Card
                 x:Name="SearchCard"
-                Margin="15,5,15,3"
+                Margin="5"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch" 
+                Grid.Column="0"
+                    Grid.ColumnSpan="1">
+
                 <TextBox
                     x:Name="SearchBox"
+                    TextAlignment="Justify"
+                    
+                    materialDesign:TextFieldAssist.Hint="Søk her"
                     Width="{Binding ActualWidth, ElementName=SearchCard, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="5,5,15,5"
+                    
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Stretch"
+                    Margin="5"
                     Controls:TextBoxHelper.Watermark="Søk"
                     FontSize="25"
                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap" />
-            </materialDesign:Card>
 
+
+            </materialDesign:Card>
+            <Button
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                x:Name="button"
+                Grid.Column="1"
+               
+                Margin="0,10,10,10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Command="{Binding CreateCommand}"
+                Content="Lag ny" Height="Auto" />
             <ListView
                 x:Name="listView"
                 Grid.Row="1"
-                Margin="10,10,10,72"
+                
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
+                Background="Transparent"
                 BorderThickness="0"
                 ItemsSource="{Binding ListOfSystems, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding CurrentDisplayedSystem}">
+                SelectedItem="{Binding CurrentDisplayedSystem}" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <userControls:SystemCard Margin="-7" />
@@ -121,10 +134,10 @@
                 Grid.Row="1"
                 Width="0"
                 Height="0"
-                Margin="427,5,0,0"
+                Margin="111.34,5,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                AllowDrop="True" />
+                AllowDrop="True" Grid.Column="1" />
 
 
 

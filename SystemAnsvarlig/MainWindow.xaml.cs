@@ -16,9 +16,9 @@ namespace SystemAnsvarlig
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-          
-        }
+            this.AllowsTransparency = true;
+            //WindowStyle = WindowStyle.None;
 
-      
+        }
     }
 }
