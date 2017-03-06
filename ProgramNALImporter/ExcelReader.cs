@@ -11,11 +11,13 @@ namespace ProgramNALImporter
 
     using Excel;
 
+    
+
     class ExcelReader
     {
-        public List<ISystem> GenerateSystemList(MemoryStream filestream)
+        public List<ITSystem> GenerateSystemList(MemoryStream filestream)
         {
-            var tempSystemList = new List<ISystem>();
+            var tempSystemList = new List<ITSystem>();
             IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(filestream);
 
             DataSet result = excelReader.AsDataSet();

@@ -45,7 +45,8 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                materialDesignMahApps:TextFieldAssist.Hint="Navnet på systemet"
+                materialDesignMahApps:HintAssist.Hint="Navnet på systemet"
+                materialDesignMahApps:HintAssist.IsFloating="False"
                 Text="{Binding Itsystem.Name}" />
 
 
@@ -58,7 +59,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                materialDesignMahApps:TextFieldAssist.Hint="Legg inn navnet på gruppen i AD"
+                materialDesignMahApps:HintAssist.Hint="Legg inn navnet på gruppen i AD"
                 Text="{Binding Itsystem.Appl}" />
 
 
@@ -73,7 +74,7 @@
                 Grid.ColumnSpan="2"
                 MinWidth="340"
                 MaxWidth="340"
-                materialDesignMahApps:TextFieldAssist.Hint="Beskrivelse...."
+                materialDesignMahApps:HintAssist.Hint="Beskrivelse...."
                 Text="{Binding Itsystem.Description}"
                 TextWrapping="Wrap" />
 
@@ -124,7 +125,7 @@
                     MaxWidth="100"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    materialDesignMahApps:TextFieldAssist.Hint="Pris på systemet "
+                    materialDesignMahApps:HintAssist.Hint="Pris på systemet "
                     Text="{Binding Itsystem.Price}"
                     Visibility="{Binding ElementName=LisenceCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
@@ -140,7 +141,7 @@
                     Grid.ColumnSpan="3"
                     MaxWidth="300"
                     VerticalAlignment="Center"
-                    materialDesignMahApps:TextFieldAssist.Hint="AD, Resurs Admin, Egent"
+                    materialDesignMahApps:HintAssist.Hint="AD, Resurs Admin, Egent"
                     Text="{Binding Itsystem.Password}" />
 
             </Grid>
@@ -158,7 +159,7 @@
                 <TextBox
                     x:Name="AliasTextbox"
                     Margin="0,5,5,5"
-                    materialDesignMahApps:TextFieldAssist.Hint="Legg til Alias"
+                    materialDesignMahApps:HintAssist.Hint="Legg til Alias"
                     TextWrapping="Wrap" />
 
                 <ListView
@@ -203,7 +204,7 @@
                 <TextBox
                     x:Name="SysAnsvarligTextbox"
                     Margin="5"
-                    materialDesignMahApps:TextFieldAssist.Hint="Legg til Systemansvarlig"
+                    materialDesignMahApps:HintAssist.Hint="Legg til Systemansvarlig"
                     Text=""
                     TextWrapping="Wrap" />
 

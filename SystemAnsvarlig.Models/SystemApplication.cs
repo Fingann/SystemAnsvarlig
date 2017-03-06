@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProgramNALImporter
+﻿namespace SystemAnsvarlig.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ITSystem : ISystem
+    using Database;
+
+  
+    public class SystemApplication : IApplication
     {
 
 
-        public ITSystem()
+        public SystemApplication()
         {
-            this.Guid = Guid.NewGuid();
+
+            Id = Guid.NewGuid().ToString();
+
         }
 
-        public ITSystem(
+        public SystemApplication(
             string name,
             string appl,
             List<string> alias,
@@ -39,8 +38,9 @@ namespace ProgramNALImporter
             this.Password = pass;
             this.Price = price;
         }
+     
 
-        public Guid Guid { get; }
+        
 
         public List<string> Alias { get; set; } = new List<string>();
 
@@ -60,7 +60,7 @@ namespace ProgramNALImporter
 
         public List<string> SysAdministrator { get; set; } = new List<string>();
 
-        public void Update(ISystem updatetdSystem)
+        public void Update(SystemApplication updatetdSystem)
         {
             Alias = updatetdSystem.Alias;
 
@@ -95,14 +95,13 @@ namespace ProgramNALImporter
             return this.Name + ", " + this.Appl;
         }
 
-        public override bool Equals(object obj)
-        {
-            var item = obj as ISystem;
+        //public override bool Equals(object obj)
+        //{
+        //    var item = obj as SystemApplication;
 
-            return item?.Guid == this.Guid;
-        }
+        //    return item?.ID == this.ID;
+        //}
 
-
+        public string Id { get; set; }
     }
 }
-

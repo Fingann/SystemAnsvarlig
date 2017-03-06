@@ -8,6 +8,7 @@ namespace ProgramNALImporter
 {
     using System.IO;
 
+   
     public class ImportApi
     {
 
@@ -35,9 +36,9 @@ namespace ProgramNALImporter
             Url = url;
         }
 
-        public List<ISystem> GetSystems()
+        public List<ITSystem> GetSystems()
         {
-            List<ISystem> systemList;
+            List<ITSystem> systemList;
             using (var filestream = new FileDownloader().DownloadFile(this.Url))
             {
 

@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using ITSystems.Model;
-
     using NinjaNye.SearchExtensions;
+
+    using ProgramNALImporter;
+
+    using ITSystem = ITSystems.Model.ITSystem;
 
     public class ITSystemAPI
     {
@@ -15,6 +17,13 @@
 
         public ITSystemAPI()
         {
+            var s = this.GetProgramNAL();
+
+            foreach (var system in s)
+            {
+                LoadedList.Add(system);
+            }
+            this.SaveITSystemList();
             this.LoadedList = this.Handler.LoadJson();
         }
 
@@ -35,6 +44,15 @@
         {
             return this.LoadedList;
         }
+
+        public List<ITSystem> GetProgramNAL()
+        {
+
+            return null;
+            //new ImportApi("http://bkk-web.bkk.no:86/idaweb?dokid=10544343&filename=IDA-dokument.xls").GetSystems();
+
+        }
+
 
         public void Insert(ITSystem systemToInsert)
         {
